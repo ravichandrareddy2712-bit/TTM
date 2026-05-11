@@ -44,11 +44,6 @@ const LandingPage = () => {
           transition={{ duration: 0.5 }}
           className="text-center"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-sm font-medium text-blue-400 mb-8">
-            <Zap size={14} />
-            <span>Introducing v2.0 - Now with Real-time Sync</span>
-          </div>
-          
           <h1 className="text-5xl font-bold tracking-tight md:text-8xl lg:text-9xl">
             Manage Tasks <br />
             <span className="text-gradient">Like Magic.</span>
@@ -110,9 +105,6 @@ const LandingPage = () => {
         </motion.section>
       </main>
 
-      <footer className="relative z-10 border-t border-white/5 py-12 text-center">
-        <p className="text-slate-500">© 2024 Team Task Manager. All rights reserved.</p>
-      </footer>
     </div>
   );
 };
