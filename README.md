@@ -99,9 +99,9 @@ npm run dev
 - **Frontend**: Deploy to platforms like Vercel, Netlify, or GitHub Pages.
 - **Database**: Already hosted on Supabase.
 
-## Demo Credentials
-- **Admin**: admin@example.com / admin123
-- **Member**: member@example.com / member123
+## DEMO CREDENTIALS
+- Admin: admin@ttm.com / admin@ttm@2026
+- Member: member@example.com / member123
 
 ## Folder Structure
 ```

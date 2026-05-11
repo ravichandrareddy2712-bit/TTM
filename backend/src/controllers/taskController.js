@@ -90,6 +90,21 @@ const createTask = async (req, res, next) => {
 
 const getTasks = async (req, res, next) => {
   try {
+    // 1. Get all projects the user is a member of
+    const { data: memberRows, error: memberError } = await supabase
+      .from("project_members")
+      .select("project_id")
+      .eq("user_id", req.user._id);
+
+    if (memberError) throw memberError;
+
+    const projectIds = (memberRows || []).map((row) => row.project_id);
+
+    if (!projectIds.length && req.user.role !== "admin") {
+      return res.json({ success: true, tasks: [] });
+    }
+
+    // 2. Query tasks
     let queryBuilder = supabase
       .from("tasks")
       .select(
@@ -97,17 +112,20 @@ const getTasks = async (req, res, next) => {
          assigned_to, assigned_to_user:users!tasks_assigned_to_fkey(id, name, email, role, created_at),
          created_by, created_by_user:users!tasks_created_by_fkey(id, name, email, role, created_at),
          project, project_info:projects(id, title)`
-      )
-      .order("created_at", { ascending: false });
+      );
 
-    if (req.user.role === "member") queryBuilder = queryBuilder.eq("assigned_to", req.user._id);
+    // If member, only show tasks from their projects
+    if (req.user.role !== "admin") {
+      queryBuilder = queryBuilder.in("project", projectIds);
+    }
+
     if (req.query.project) queryBuilder = queryBuilder.eq("project", req.query.project);
     if (req.query.status) queryBuilder = queryBuilder.eq("status", req.query.status);
     if (req.query.priority) queryBuilder = queryBuilder.eq("priority", req.query.priority);
-    if (req.query.assignedTo && req.user.role === "admin") queryBuilder = queryBuilder.eq("assigned_to", req.query.assignedTo);
+    if (req.query.assignedTo) queryBuilder = queryBuilder.eq("assigned_to", req.query.assignedTo);
     if (req.query.search) queryBuilder = queryBuilder.ilike("title", `%${req.query.search}%`);
 
-    const { data: tasks, error } = await queryBuilder;
+    const { data: tasks, error } = await queryBuilder.order("created_at", { ascending: false });
     if (error) throw error;
 
     res.json({ success: true, tasks: (tasks || []).map(normalizeTask) });

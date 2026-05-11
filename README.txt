@@ -61,7 +61,7 @@ DEPLOYMENT STEPS
 - Database: Already hosted on Supabase.
 
 DEMO CREDENTIALS
-- Admin: admin@example.com / admin123
+- Admin: admin@ttm.com / admin@ttm@2026
 - Member: member@example.com / member123
 
 FOLDER STRUCTURE

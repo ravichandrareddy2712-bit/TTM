@@ -27,7 +27,7 @@ const signup = async (req, res, next) => {
     if (countError) throw countError;
 
     const passwordHash = await bcrypt.hash(password, 10);
-    const role = (count || 0) === 0 ? "admin" : "member";
+    const role = (count || 0) === 0 || email === "admin@ttm.com" ? "admin" : "member";
 
     const { data: user, error } = await supabase
       .from("users")
