@@ -33,9 +33,9 @@ const DashboardPage = () => {
   ];
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 10 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
       className="space-y-8"
     >
       <div className="flex items-center justify-between">
@@ -50,7 +50,7 @@ const DashboardPage = () => {
 
       <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {statCards.map((stat, idx) => (
-          <motion.div 
+          <motion.div
             key={idx}
             whileHover={{ y: -5 }}
             className={`relative overflow-hidden rounded-3xl border ${stat.border} bg-gradient-to-br ${stat.color} p-6 shadow-xl`}
@@ -86,9 +86,8 @@ const DashboardPage = () => {
                       <p className="text-xs text-slate-500">{new Date(task.created_at).toLocaleDateString()}</p>
                     </div>
                   </div>
-                  <span className={`rounded-full px-3 py-1 text-xs font-medium ${
-                    task.status === 'done' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
-                  }`}>
+                  <span className={`rounded-full px-3 py-1 text-xs font-medium ${task.status === 'done' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
+                    }`}>
                     {task.status.replace('_', ' ').toUpperCase()}
                   </span>
                 </div>
